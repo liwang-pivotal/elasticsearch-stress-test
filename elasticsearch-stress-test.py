@@ -335,7 +335,13 @@ def main():
             # We increase the timeout here from the default value (10 seconds)
             # to ensure we wait for requests to finish even if the cluster is overwhelmed
             # and it takes a bit longer to process one bulk.
-            es = Elasticsearch(esaddress, timeout=60)
+            es = Elasticsearch(
+                    host=esaddress,
+                    port=9200,
+                    use_ssl=True,
+                    verify_certs=True,
+                    ca_certs="/ca.pem"
+                 )
 
         except Exception as e:
             print("Could not connect to elasticsearch!")
